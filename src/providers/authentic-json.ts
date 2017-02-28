@@ -16,9 +16,6 @@ export class AuthenticJSON {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", this.url, true);
     
-    if (this.data) {
-        return Promise.resolve(this.data);
-    }
     this.data = JSON.stringify({"username":name,"password":password});
     
     xhr.send(this.data);
@@ -26,7 +23,7 @@ export class AuthenticJSON {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        let data = JSON.parse(xhr.responseText);
+        return JSON.parse(xhr.responseText);
       }
     }
   }
