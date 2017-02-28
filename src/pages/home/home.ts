@@ -9,7 +9,7 @@ import { AuthenticJSON } from '../../providers/authentic-json';
 })
 export class HomePage {
 
-  isValid: boolean;
+  isValid: string;
   username: String;
   password: String;
 

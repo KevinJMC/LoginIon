@@ -12,19 +12,12 @@ export class AuthenticJSON {
     
   }
 
-  sendData(name:String, password:String) {
+  sendData (name:String, password:String) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", this.url, true);
-    
-    this.data = JSON.stringify({"username":name,"password":password});
-    
-    xhr.send(this.data);
-    
+    xhr.open("GET", "http://127.0.0.1:8080/send", true);
     xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        return JSON.parse(xhr.responseText);
+    xhr.send(JSON.stringify({"username":name,"password":password}));
+    console.log(xhr.response);
+    this.data = xhr.responseText;
       }
     }
-  }
-}
