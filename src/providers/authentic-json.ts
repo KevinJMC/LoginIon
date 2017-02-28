@@ -6,27 +6,27 @@ import 'rxjs/add/operator/map';
 export class AuthenticJSON {
 
   data: any;
-  var xhr = XMLHttpRequest();
-  var url = "localhost:8080/send";
+  url: string = "localhost:8080/send";
 
   constructor(public http: Http) {
     
   }
 
   sendData(name:String, password:String) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", this.url, true);
+    
     if (this.data) {
         return Promise.resolve(this.data);
     }
-    data = JSON.stringify({"username":name,"password":password});
+    this.data = JSON.stringify({"username":name,"password":password});
     
-    xhr.open("POST", url, true);
+    xhr.send(this.data);
     
-    xhr.send(data);
-    xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        data = JSON.parse(xhr.responseText);
+        let data = JSON.parse(xhr.responseText);
       }
     }
   }

@@ -35,8 +35,8 @@ export class HomePage {
    alert.present();
  }
  
- onSubmit(username, password) {
-    this.authJSON.load(username, password);
+ onSubmit() {
+    this.authJSON.sendData(this.username, this.password);
     this.isValid = this.authJSON.data;
     if(this.isValid) {
       this.showSuccessAlert();
