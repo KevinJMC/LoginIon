@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Jsonp, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticJSON {
 
-	public jsonp:any;
-    data: any;
+  data: any;
+  var xhr = XMLHttpRequest();
+  var url = "localhost:8080/send";
 
-  constructor(jsonp: Jsonp, public http: Http) {
-    this.jsonp = jsonp;
+  constructor(public http: Http) {
+    
   }
 
-  load(name:String, password:String) {
+  sendData(name:String, password:String) {
     if (this.data) {
         return Promise.resolve(this.data);
     }
+    data = JSON.stringify({"username":name,"password":password});
     
-      let params = new URLSearchParams('callback=JSONP_CALLBACK');
-      params.set('term', keyword);
-      return this.jsonp.request('localhost:8080/send', {
-        search: params
-      }).toPromise()
-        .then((response) => response.json().results);
+    xhr.open("POST", url, true);
+    
+    xhr.send(data);
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        data = JSON.parse(xhr.responseText);
+      }
+    }
   }
 }
