@@ -13,8 +13,6 @@ export class AuthenticJSON {
   search: null,
   headers: new Headers({'Content-Type':'application/json'}),
   };
-//  var reqOptions = new RequestOptions(basicOptions);
-//  var req = new Request(reqOptions);
 
   constructor(public http: Http) {
     
