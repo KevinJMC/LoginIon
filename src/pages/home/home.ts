@@ -10,8 +10,8 @@ import { AuthenticJSON } from '../../providers/authentic-json';
 export class HomePage {
 
   isValid: string;
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private authJSON: AuthenticJSON) {
     
@@ -38,7 +38,7 @@ export class HomePage {
  onSubmit() {
     this.authJSON.sendData(this.username, this.password);
     this.isValid = this.authJSON.data;
-    if(this.isValid) {
+    if(this.isValid == "true") {
       this.showSuccessAlert();
     } else {
       this.showDenyAlert();

@@ -3,7 +3,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthenticJSON } from '../providers/authentic-json';
-import { JsonpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -12,7 +11,6 @@ import { JsonpModule } from '@angular/http';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    JsonpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

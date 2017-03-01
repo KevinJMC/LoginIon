@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http, Request, RequestOptions, RequestOptionsArgs } from '@angular/http';
+
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticJSON {
 
   data: any;
-  url: string = "localhost:8080/send";
+  
+  basicOptions:RequestOptionsArgs = {
+  url: 'http://127.0.0.1:8080/login',
+  search: null,
+  headers: new Headers({'Content-Type':'application/json'}),
+  };
+//  var reqOptions = new RequestOptions(basicOptions);
+//  var req = new Request(reqOptions);
 
   constructor(public http: Http) {
     
   }
 
-  sendData (name:String, password:String) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://127.0.0.1:8080/send", true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send(JSON.stringify({"username":name,"password":password}));
-    console.log(xhr.response);
-    this.data = xhr.responseText;
-      }
-    }
+  sendData (name:string, password:string) {
+    this.http.post("login", JSON.stringify({"username":name,"password": password}), this.basicOptions).subscribe(res => {
+      this.data = res.json();
+      console.log(this.data);
+    });
+  }
+}
